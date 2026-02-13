@@ -4,7 +4,11 @@ export async function POST(req) {
   try {
     const { question, history } = await req.json();
 
-    // The "Magic" that breaks the 2023 barrier
+    // --- WAJU STUDIO LOGGING ---
+    // This allows you to see user questions in your Vercel Logs dashboard
+    console.log("📩 NEW QUESTION FOR WAJU:", question);
+    // ---------------------------
+
     const now = new Date();
     const currentDateTime = now.toLocaleString("en-GB", { 
       timeZone: "Africa/Lagos",
@@ -37,6 +41,7 @@ export async function POST(req) {
     const data = await response.json();
     return NextResponse.json({ answer: data.choices[0].message.content });
   } catch (error) {
+    console.error("LOGGING ERROR:", error);
     return NextResponse.json({ error: "System update required." }, { status: 500 });
   }
 }
