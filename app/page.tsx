@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  const [sessions, setSessions] = useState([]);
-  const [currentChat, setCurrentChat] = useState([]);
-  const [activeSessionId, setActiveSessionId] = useState(null);
+  const [sessions, setSessions] = useState<any[]>([]);
+  const [currentChat, setCurrentChat] = useState<any[]>([]);
+  const [activeSessionId, setActiveSessionId] = useState<number | null>(null);
   const [question, setQuestion] = useState("");
   const [isAnswering, setIsAnswering] = useState(false);
 
@@ -21,7 +21,7 @@ export default function Home() {
     }
   }, []);
 
-  const saveToStorage = (updatedSessions) => {
+  const saveToStorage = (updatedSessions: any[]) => {
     setSessions(updatedSessions);
     localStorage.setItem("waju_sessions", JSON.stringify(updatedSessions));
   };
@@ -32,7 +32,7 @@ export default function Home() {
     setCurrentChat([]);
   };
 
-  const deleteHistoryItem = (id, e) => {
+  const deleteHistoryItem = (id: number, e: React.MouseEvent) => {
     e.stopPropagation(); 
     const filtered = sessions.filter(s => s.id !== id);
     saveToStorage(filtered);
